@@ -1,4 +1,4 @@
-package com.ajo.dto;
+package com.ajo.user;
 
 
 

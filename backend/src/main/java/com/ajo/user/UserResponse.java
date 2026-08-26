@@ -1,4 +1,4 @@
-package com.ajo.dto;
+package com.ajo.user;
 
 // DTO(data transfer object) class- used to send back response to the network(API/fronend)
 public class UserResponse {

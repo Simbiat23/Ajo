@@ -1,9 +1,8 @@
-package com.ajo.service;
+package com.ajo.circle;
 
 import org.springframework.stereotype.Service;
 
-import com.ajo.repository.CircleRepository;
-import com.ajo.repository.UserRepository;
+import com.ajo.user.UserRepository;
 
 @Service
 public class CircleService {
@@ -16,7 +15,7 @@ public class CircleService {
         this.userRepository = userRepository;
     }
 
-    public 
+
 
     
 }

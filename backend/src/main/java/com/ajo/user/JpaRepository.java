@@ -1,4 +1,4 @@
-package com.ajo.repository;
+package com.ajo.user;
 
 /**
  * JpaRepository

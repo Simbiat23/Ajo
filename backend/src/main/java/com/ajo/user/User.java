@@ -1,4 +1,4 @@
-package com.ajo.entity;
+package com.ajo.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,7 +1,9 @@
-package com.ajo.entity;
+package com.ajo.circle;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.ajo.user.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,10 +1,7 @@
-package com.ajo.service;
+package com.ajo.user;
 
 import org.springframework.stereotype.Service;
-import com.ajo.dto.UserRegisterRequest;
-import com.ajo.dto.UserResponse;
-import com.ajo.entity.User;
-import com.ajo.repository.UserRepository;
+
 import com.ajo.exception.EmailAlreadyExistsException;
 
 @Service

@@ -1,4 +1,4 @@
-package com.ajo.entity;
+package com.ajo.circle;
 
 public enum Frequency {
     WEEKLY,
