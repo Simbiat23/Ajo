@@ -16,7 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    //Buiness logic- checking if email already exist using before pasing in a UserRegisterRequest to creat a user then a userResponse object
+    //Buiness logic- checking if email already exist before using the request to  create a User then a userResponse object
     public UserResponse createUser(UserRegisterRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isEmpty()) {
             User newUser = new User();

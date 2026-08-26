@@ -13,7 +13,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                //this is just for testing, remeber to remove this before submitting your work
+                //this is just for testing, remember to remove this before submitting your work
                 .anyRequest().permitAll()
             );
         return http.build();
