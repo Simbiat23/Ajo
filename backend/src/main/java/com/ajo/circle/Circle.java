@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 
-@Table(name = "circles");
+@Table(name = "circles")
 public class Circle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

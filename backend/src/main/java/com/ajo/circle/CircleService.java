@@ -1,6 +1,10 @@
 package com.ajo.circle;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
+
 
 import org.springframework.stereotype.Service;
 
@@ -36,10 +40,49 @@ public class CircleService {
 
         return circleResponse;
 
-    
-
         
     }
+
+    public List<CircleResponse> getAllCircles() {
+        List<CircleResponse> listOfCircle = new ArrayList<>();
+        for (Circle circle: circleRepository.findAll()) {
+            CircleResponse eachCircle = new CircleResponse(circle.getId(),circle.getName(), circle.getContributionAmount(), circle.getFrequency(), circle.getMaxMembers(), circle.getStartDate(),circle.getInviteCode(), circle.getCurrentCycle());
+            listOfCircle.add(eachCircle);
+
+        }
+        return listOfCircle;
+    
+    }
+    public CircleResponse getCircleById(Long id)throws NoSuchElementException {
+        Circle circle = circleRepository.findById(id).orElseThrow();
+        CircleResponse aCircle = new CircleResponse(circle.getId(),circle.getName(), circle.getContributionAmount(), circle.getFrequency(), circle.getMaxMembers(), circle.getStartDate(),circle.getInviteCode(), circle.getCurrentCycle());
+        return aCircle;
+    
+
+    }
+
+    public CircleResponse updateCircle(Long id, CircleRequest circleRequest) {
+        Circle existingCircle = circleRepository.findById(id).orElseThrow();
+        existingCircle.setContributionAmount(circleRequest.getContributionAmount());
+        existingCircle.setName(circleRequest.getName());
+        existingCircle.setFrequency(circleRequest.getFrequency());
+        existingCircle.setMaxMembers(circleRequest.getMaxMembers());
+        existingCircle.setStartDate(circleRequest.getStartDate());
+
+        Circle updatedCircle = circleRepository.save(existingCircle);
+
+        CircleResponse circleResponse = new CircleResponse(updatedCircle.getId(),updatedCircle.getName(), updatedCircle.getContributionAmount(), updatedCircle.getFrequency(), updatedCircle.getMaxMembers(), updatedCircle.getStartDate(),updatedCircle.getInviteCode(), updatedCircle.getCurrentCycle());
+        return circleResponse;
+    }
+
+    public void deleteCircle(Long id) {
+        if (!circleRepository.existsById(id)) {
+            throw new NoSuchElementException("Unable to find and delete Circle with this id");
+        }
+        circleRepository.deleteById(id);
+    }
+
+
 
   
 
