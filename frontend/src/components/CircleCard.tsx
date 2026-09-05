@@ -1,4 +1,5 @@
 import type { CircleResponse } from "@/types/types";
+import { Badge, Box, Heading, Stack, Text } from "@chakra-ui/react";
 
 interface CircleCardProp  {
     circle: CircleResponse
@@ -6,16 +7,19 @@ interface CircleCardProp  {
 
 export function CircleCard({circle}: CircleCardProp) {
     return (
-        <div>
-           <span>{circle.id}</span> 
-           <span>{circle.name}</span> 
-           <span>{circle.contributionAmount}</span> 
-           <span>{circle.frequency}</span> 
-           <span>{circle.maxMembers}</span> 
-           <span>{circle.startDate}</span> 
-           <span>{circle.inviteCode}</span> 
-           <span>{circle.currentCycle}</span> 
-        </div>
+        <Box borderWidth="1px" borderRadius="md" padding="6" maxWidth="400px">
+           <Heading>Circle Name: {circle.name}</Heading> 
+           <Stack gap= "2">
+                <Text> Circle Id: {circle.id}</Text>
+                <Text>Contribution: £{circle.contributionAmount}</Text> 
+                <Badge>Frequency: {circle.frequency}</Badge> 
+                <Text>Max Members: {circle.maxMembers}</Text> 
+                <Text>Start Date: {circle.startDate}</Text> 
+                <Text>Invite Code: {circle.inviteCode}</Text> 
+                <Text>Current Cycle: {circle.currentCycle}</Text> 
+
+            </Stack>    
+        </Box>
     )
 
 }

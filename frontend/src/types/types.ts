@@ -23,8 +23,8 @@ export interface CircleRequest {
 
 export interface FormErrors {
     name: string; // 10 characters limit 
-    maxMembers: number; // Only five memebers can join at a time
+    maxMembers: number; // At least 2 must join at a time
     startDate: string; // Valid date format - (12/07/2026)
-    
+
 
 }

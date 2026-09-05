@@ -13,7 +13,7 @@ function App() {
 
  return (
     <div>
-      <h1>ÀJỌ</h1>
+      <h1 text-align="center" >ÀJỌ</h1>
       
       {createdCircle === null ? 
        <CircleForm onCircleCreated = {setCreatedCircle}/> :
