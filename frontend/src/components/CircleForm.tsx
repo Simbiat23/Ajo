@@ -44,7 +44,7 @@ function CircleForm({onCircleCreated}: CircleFormProp) {
     const [errors, setErrors] = useState<FormErrors>({})
     const [submitError, setSubmitError] = useState('')
 
-    async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>){
+    async function handleSubmit(event: React.SubmitEvent<HTMLDivElement>){
         event.preventDefault();
         const newError = validateForm(name, contributionAmount, maxMembers, startDate)
         setErrors(newError)
