@@ -1,16 +1,21 @@
 import { httpApi } from "@/api/api";
 import type { CircleResponse } from "@/types/types";
-import { Grid, GridItem, Stack} from "@chakra-ui/react";
+import { Grid, GridItem, SimpleGrid, Stack} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import CircleCard from "./CircleCard";
+
+interface CircleListProp {
+    onClickedCard: (circle: CircleResponse) => void
+}
 
 export type RequestState<T> =
     | { status: 'idle' }
     | { status: 'loading' }
     | { status: 'success'; data: T }
     | { status: 'error'; error: Error };
-export function CircleList() {
+export function CircleList({onClickedCard}: CircleListProp) {
     const [state, setState] = useState<RequestState<CircleResponse[]>>({status:'idle'})
+   
 
     async function load() {
         setState({status: 'loading'})
@@ -34,6 +39,20 @@ export function CircleList() {
         }, []
     )
 
+    // handler function to handle card click and display the details page
+
+    async function handleOnClick (clickedCircle: CircleResponse) {
+
+         const getClickedCircle = await httpApi.getCircleById(clickedCircle.id)
+                if (!getClickedCircle) {
+                    throw new Error('Circle not found')
+                } else {
+                    onClickedCard(getClickedCircle);
+                }  
+
+       
+    }
+
     
     switch(state.status) {
         case 'idle':
@@ -44,14 +63,13 @@ export function CircleList() {
              return <p>Something went wrong: {state.error.message}</p>
         case 'success':
             return(
-                <Grid>
-                    {state.data.map((circle) => (
-                        <GridItem>
-                            <CircleCard key={circle.id} circle={circle}/>
-                        </GridItem>
+                <SimpleGrid columns={2} gap={4} >
+                    {state.data.map((circle) => (     
+                        <CircleCard onClickCard={() => handleOnClick(circle)} key={circle.id} circle={circle}/>
+                       
                         
                     ))}
-                </Grid>
+                </SimpleGrid>
             )
 
             

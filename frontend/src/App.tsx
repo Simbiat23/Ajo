@@ -17,7 +17,9 @@ function App() {
   function renderPage() {
     switch(page) {
       case 'home':
-        return <CircleList/>
+        return <CircleList onClickedCard={(circle) => 
+          {setCreatedCircle(circle)
+            setPage('detail')}}/>
       case 'create':
         return <CircleForm onCircleCreated={(circle) => {
           setCreatedCircle(circle)

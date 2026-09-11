@@ -16,7 +16,7 @@ interface FormErrors {
 // a Function to check the form is valid 
 function validateForm(name: string, contributionAmount: string, maxMembers: string, startDate: string): FormErrors{
     const newErrors: FormErrors = {}
-    // converting the strings to number because the type input accets a string leteral
+    // converting the strings to number because the type input accepts a string leteral
     const amountNum = Number(contributionAmount);
     const membersNum = Number(maxMembers);
     if (name === '') {
@@ -35,6 +35,7 @@ function validateForm(name: string, contributionAmount: string, maxMembers: stri
 
     return newErrors;
 }
+
 function CircleForm({onCircleCreated}: CircleFormProp) {
     const [name, setName] = useState('')
     const [contributionAmount, setContributionAmount] = useState('')
