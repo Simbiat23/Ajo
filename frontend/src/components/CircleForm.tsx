@@ -1,5 +1,5 @@
 import { httpApi } from "@/api/api";
-import type { CircleRequest, CircleResponse, Frequency } from "@/types/types";
+import type {CircleResponse, Frequency } from "@/types/types";
 import { Box, Button, Field, Heading, Input, NativeSelect, Stack, Text } from "@chakra-ui/react";
 
 import { useState } from "react";

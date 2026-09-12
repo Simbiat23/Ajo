@@ -1,6 +1,6 @@
 import { httpApi } from "@/api/api";
 import type { CircleResponse } from "@/types/types";
-import { Grid, GridItem, SimpleGrid, Stack} from "@chakra-ui/react";
+import { SimpleGrid} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import CircleCard from "./CircleCard";
 
