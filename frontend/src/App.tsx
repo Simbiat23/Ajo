@@ -6,12 +6,12 @@ import CircleCard from './components/CircleCard'
 import CircleList from './components/CircleList'
 import { Button, Container, Heading, HStack } from '@chakra-ui/react'
 
-type Page = 'home' | 'create' | 'detail'
+type Page = 'home' | 'create' | 'detail'| 'edit';
 function App() {
   // Lifting state up: createdCircle lives here (not inside CircleForm) so both
 // CircleForm and CircleCard can access it.
   const [createdCircle, setCreatedCircle] = useState<CircleResponse | null>(null)
-  const [page, setPage] = useState<Page>('home')
+  const [page, setPage] = useState<Page>('home') 
 
 // a small helper function that containers switch case to use to call inside the JSX
   function renderPage() {
@@ -27,8 +27,20 @@ function App() {
         }}/>
       case 'detail':
         if (createdCircle !== null) {
-          return <CircleCard circle={createdCircle}/>
+          return <CircleCard isDetailPage ={true} circle={createdCircle} onClickButton={() =>
+            setPage('edit')
+          }/>
         }
+      case 'edit':
+        if (createdCircle !== null) {
+          return <CircleForm existingCircle={createdCircle} onCircleCreated={(circle) => {
+            setCreatedCircle(circle)
+            setPage('detail')
+          }}/>
+
+        }
+        
+
         
     }
   }

@@ -1,11 +1,12 @@
 import { httpApi } from "@/api/api";
-import type { CircleResponse, Frequency } from "@/types/types";
+import type { CircleRequest, CircleResponse, Frequency } from "@/types/types";
 import { Box, Button, Field, Heading, Input, NativeSelect, Stack, Text } from "@chakra-ui/react";
 
 import { useState } from "react";
 
 interface CircleFormProp {
     onCircleCreated : (circle: CircleResponse) => void
+    existingCircle?: CircleResponse
 }
 interface FormErrors {
     name?: string;
@@ -36,12 +37,12 @@ function validateForm(name: string, contributionAmount: string, maxMembers: stri
     return newErrors;
 }
 
-function CircleForm({onCircleCreated}: CircleFormProp) {
-    const [name, setName] = useState('')
-    const [contributionAmount, setContributionAmount] = useState('')
-    const [frequency, setFrequency] = useState<Frequency>('BIWEEKLY')
-    const [maxMembers, setMaxMembers] = useState('')
-    const [startDate, setStartDate] = useState('')
+function CircleForm({onCircleCreated, existingCircle}: CircleFormProp) {
+    const [name, setName] = useState(existingCircle?.name || '')
+    const [contributionAmount, setContributionAmount] = useState(existingCircle ? String(existingCircle.contributionAmount) : '')
+    const [frequency, setFrequency] = useState<Frequency>(existingCircle?.frequency ||'BIWEEKLY')
+    const [maxMembers, setMaxMembers] = useState(existingCircle ? String(existingCircle?.maxMembers) : '')
+    const [startDate, setStartDate] = useState(existingCircle?.startDate || '')
     const [errors, setErrors] = useState<FormErrors>({})
     const [submitError, setSubmitError] = useState('')
 
@@ -54,10 +55,16 @@ function CircleForm({onCircleCreated}: CircleFormProp) {
         }
 
         try {
+            if (!existingCircle) {
+                const newCircle = await httpApi.createCircle({name, contributionAmount: Number(contributionAmount), frequency, maxMembers: Number(maxMembers), startDate})
+                onCircleCreated(newCircle);
+
+            } else {
+                const updateCircle = await httpApi.updateCircle(existingCircle.id, {name, contributionAmount: Number(contributionAmount), frequency, maxMembers: Number(maxMembers), startDate})
+                onCircleCreated(updateCircle)
+            }
             
-            const newCircle = await httpApi.createCircle({name, contributionAmount: Number(contributionAmount)
-            , frequency, maxMembers: Number(maxMembers), startDate})
-            onCircleCreated(newCircle);
+            
         
         //  Catch block to catch submit error from api client to use to later display on ui
 
@@ -71,8 +78,8 @@ function CircleForm({onCircleCreated}: CircleFormProp) {
     
 
     return (
-        <Box as="form" onSubmit={handleSubmit} borderWidth= "1px" border="md" padding="6" maxWidth="480px" >
-            <Heading size="md" marginBottom="4">Create a circle</Heading>
+        <Box as="form" onSubmit={handleSubmit} borderWidth= "1px" borderRadius="md" padding="6" maxWidth="480px" >
+            <Heading size="md" marginBottom="4">{!existingCircle ? "Create a circle" : "Edit Circle"}</Heading>
 
             <Stack gap="4">
                 <Field.Root invalid={!!errors.name}>
@@ -117,7 +124,7 @@ function CircleForm({onCircleCreated}: CircleFormProp) {
                 </Stack>
             
 
-                <Button type="submit" width="100%"> Create Circle</Button>
+                <Button type="submit" width="100%"> {!existingCircle ? "Create Circle" : "Update Circle"}</Button>
                 {submitError && <Text color="red.500">{submitError}</Text>}
             </Stack>
         </Box>

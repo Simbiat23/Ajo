@@ -1,12 +1,14 @@
 import type { CircleResponse } from "@/types/types";
-import { Badge, Box, Heading,Stack, Text } from "@chakra-ui/react";
+import { Badge, Box, Button, Heading,Stack, Text } from "@chakra-ui/react";
 
 interface CircleCardProp  {
     circle: CircleResponse
     onClickCard?: () => void;
+    onClickButton?: () => void
+    isDetailPage?: boolean
 }
 
-export function CircleCard({circle, onClickCard}: CircleCardProp) {
+export function CircleCard({circle, onClickCard, onClickButton, isDetailPage}: CircleCardProp) {
     return (   
           <Box onClick={onClickCard} borderWidth="1px" borderRadius="md" padding="6" maxWidth="400px">
             <Heading>Circle Name: {circle.name}</Heading> 
@@ -18,7 +20,10 @@ export function CircleCard({circle, onClickCard}: CircleCardProp) {
                     <Text>Start Date: {circle.startDate}</Text> 
                     <Text>Invite Code: {circle.inviteCode}</Text> 
                     <Text>Current Cycle: {circle.currentCycle}</Text> 
-                </Stack>    
+                </Stack>  
+                <br/>
+                {isDetailPage && <Button onClick={onClickButton}>Edit Circle</Button>}
+                
             </Box>
        
     )
