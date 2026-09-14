@@ -1,4 +1,4 @@
-# ÀJỌ — Community Savings Circle Management Platform
+# ÀJỌ- Community Savings Circle Management Platform
 
 ÀJỌ is a digital rotational savings circle (susu/ajo) platform, built for a fullstack development course with CBF Academy. It's designed to bring transparency and accountability to informal community savings groups, letting members create circles, join via invite code, track contributions, and follow the payout rotation, all in one place.
 
@@ -18,11 +18,11 @@ The original goal (see `BRD.md` / project brief) was a full platform supporting:
 
 ## What's actually built (current scope)
 
-Given the time available, I made a deliberate call to build **one feature end-to-end, fully** — Circles — rather than build every entity partially. Full CRUD for Circles is implemented and working, on both backend and frontend, and User registration is implemented on the backend.
+Given the time available, I made a deliberate call to build **one feature end-to-end, fully** Circles- rather than build every entity partially. Full CRUD for Circles is implemented and working, on both backend and frontend, and User registration is implemented on the backend.
 
 **Backend (Spring Boot + MySQL):**
-- `User` — registration only (entity, repository, service, controller, DTOs, custom exception for duplicate emails)
-- `Circle` — full CRUD (create, read all, read by id, update, delete), with DTOs, auto-generated invite codes, and seed data
+- `User` - registration only (entity, repository, service, controller, DTOs, custom exception for duplicate emails)
+- `Circle` - full CRUD (create, read all, read by id, update, delete), with DTOs, auto-generated invite codes, and seed data
 - Swagger/OpenAPI documentation, live at `/swagger-ui/index.html`
 
 **Frontend (React + TypeScript + Chakra UI):**
@@ -35,7 +35,7 @@ Given the time available, I made a deliberate call to build **one feature end-to
 - Typed API client (`api.ts`) wrapping all backend calls
 
 **Infrastructure:**
-- Docker Compose with three services: `frontend` (nginx), `backend` (Spring Boot), `db` (MySQL) — isolated network, persistent volume for the database, environment variables via `.env` (not hardcoded), and a healthcheck gating the database's readiness before the backend starts
+- Docker Compose with three services: `frontend` (nginx), `backend` (Spring Boot), `db` (MySQL) isolated network, persistent volume for the database, environment variables via `.env` (not hardcoded), and a healthcheck gating the database's readiness before the backend starts
 - Seed data for both users and circles, so a fresh container shows a populated app immediately
 
 ## What's not built yet (known gaps)
@@ -43,19 +43,17 @@ Given the time available, I made a deliberate call to build **one feature end-to
 Being upfront about these, since I'd rather state the scope clearly than have it discovered:
 
 - **`CircleMember`, `Contribution`, `Payout`, `ActivityLog`** — not built. These are the entities that would implement the actual "rotational savings" logic (joining a circle, submitting contributions, the payout rotation itself). Circle currently exists as a standalone entity with no members attached.
-- **`GlobalExceptionHandler` (`@ControllerAdvice`)** — not built yet. Exceptions like a duplicate email or a missing circle currently surface as generic `500` errors rather than clean `409`/`404` responses. I have the design worked out (a `@RestControllerAdvice` mapping specific exceptions to specific status codes); it's paused pending confirmation from my mentor on how much depth is expected here.
-- **Password hashing** — passwords are currently stored in plaintext. BCrypt hashing was planned but not yet wired in.
-- **Real authentication** — there's no login endpoint, and Spring Security is currently configured to permit all requests (`SecurityConfig.java`), purely to unblock local development and testing. This is a known, deliberate placeholder, not an oversight — real endpoint protection (public register/login, authenticated everything else) is a planned next step.
-- **Circle organiser** — the `Circle` entity has an `organiser` field (a `@ManyToOne` relationship to `User`), but it's never populated in the current CRUD flow, since building real login/session handling was out of scope for this pass.
+- **Password hashing** - passwords are currently stored in plaintext. BCrypt hashing was planned but not yet wired in.
+- **Real authentication** - there's no login endpoint, and Spring Security is currently configured to permit all requests (`SecurityConfig.java`), purely to unblock local development and testing. This is a known, deliberate placeholder, not an oversight — real endpoint protection (public register/login, authenticated everything else) is a planned next step.
+- **Circle organiser** - the `Circle` entity has an `organiser` field (a `@ManyToOne` relationship to `User`), but it's never populated in the current CRUD flow, since building real login/session handling was out of scope for this pass.
 
 ## What I'd do with more time
 
 1. Build `CircleMember` (joining a circle via invite code) and wire up the organiser relationship properly
 2. Build `Contribution` and `Payout`, including the actual rotation logic (`((cycleNumber - 1) % totalMembers) + 1`)
-3. Finish `GlobalExceptionHandler` for clean, correctly-coded error responses across the whole app
-4. Add BCrypt password hashing and a real login endpoint, then replace the temporary permissive `SecurityConfig` with proper route protection
-5. Add the `ActivityLog` feed
-6. Consider client-side routing (`react-router-dom`) for real URLs, if the app grows further
+3. Add BCrypt password hashing and a real login endpoint, then replace the temporary permissive `SecurityConfig` with proper route protection
+4. Add the `ActivityLog` feed
+5. Consider client-side routing (`react-router-dom`) for real URLs, if the app grows further
 
 ---
 
@@ -92,7 +90,7 @@ project/
 
 ## Running the project
 
-### Option A — Docker Compose (recommended)
+### Option A- Docker Compose (recommended)
 
 This runs all three services together, with a fresh, seeded database.
 
@@ -118,7 +116,7 @@ docker compose down -v
 docker compose up --build
 ```
 
-### Option B — running locally, without Docker
+### Option B- running locally, without Docker
 
 **Backend:**
 ```bash
