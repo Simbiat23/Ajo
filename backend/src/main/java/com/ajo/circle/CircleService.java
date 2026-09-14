@@ -21,6 +21,21 @@ public class CircleService {
         this.userRepository = userRepository;
     }
 
+    public CircleResponse circleResponse (Circle circle){
+        CircleResponse circleResponse = new CircleResponse(circle.getId(), circle.getName(), circle.getContributionAmount(), circle.getFrequency(), circle.getMaxMembers(), circle.getStartDate(), circle.getInviteCode(), circle.getCurrentCycle());
+        return circleResponse;
+
+
+    }
+
+    public String generateInviteCode () {
+        Random random = new Random();
+        int number =  random.nextInt(1000);
+        String inviteCode = "AJO-" + String.format("%04d", number);
+        return inviteCode;
+    }
+
+
     public CircleResponse createCircle(CircleRequest request) {
         Circle newCircle = new Circle();
     
@@ -29,14 +44,11 @@ public class CircleService {
         newCircle.setContributionAmount(request.getContributionAmount());
         newCircle.setFrequency(request.getFrequency());
         newCircle.setStartDate(request.getStartDate());
-        Random random = new Random();
-        int number =  random.nextInt(1000);
-        String inviteCode = "AJO-" + String.format("%04d", number);
-        newCircle.setInviteCode(inviteCode);
+        newCircle.setInviteCode(generateInviteCode());
         newCircle.setCurrentCycle(1);
      
         Circle storeCircle = circleRepository.save(newCircle);
-        CircleResponse circleResponse = new CircleResponse(storeCircle.getId(), storeCircle.getName(), storeCircle.getContributionAmount(), storeCircle.getFrequency(), storeCircle.getMaxMembers(), storeCircle.getStartDate(), storeCircle.getInviteCode(), storeCircle.getCurrentCycle());
+        CircleResponse circleResponse = circleResponse(storeCircle);
 
         return circleResponse;
 
@@ -46,16 +58,17 @@ public class CircleService {
     public List<CircleResponse> getAllCircles() {
         List<CircleResponse> listOfCircle = new ArrayList<>();
         for (Circle circle: circleRepository.findAll()) {
-            CircleResponse eachCircle = new CircleResponse(circle.getId(),circle.getName(), circle.getContributionAmount(), circle.getFrequency(), circle.getMaxMembers(), circle.getStartDate(),circle.getInviteCode(), circle.getCurrentCycle());
+            CircleResponse eachCircle = circleResponse(circle);
             listOfCircle.add(eachCircle);
 
         }
         return listOfCircle;
     
     }
+
     public CircleResponse getCircleById(Long id)throws NoSuchElementException {
         Circle circle = circleRepository.findById(id).orElseThrow();
-        CircleResponse aCircle = new CircleResponse(circle.getId(),circle.getName(), circle.getContributionAmount(), circle.getFrequency(), circle.getMaxMembers(), circle.getStartDate(),circle.getInviteCode(), circle.getCurrentCycle());
+        CircleResponse aCircle = circleResponse(circle);
         return aCircle;
     
 
@@ -71,7 +84,7 @@ public class CircleService {
 
         Circle updatedCircle = circleRepository.save(existingCircle);
 
-        CircleResponse circleResponse = new CircleResponse(updatedCircle.getId(),updatedCircle.getName(), updatedCircle.getContributionAmount(), updatedCircle.getFrequency(), updatedCircle.getMaxMembers(), updatedCircle.getStartDate(),updatedCircle.getInviteCode(), updatedCircle.getCurrentCycle());
+        CircleResponse circleResponse = circleResponse(updatedCircle);
         return circleResponse;
     }
 
