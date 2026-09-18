@@ -5,8 +5,9 @@ import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
-@Setter
+@Setter 
 public class CircleRequest {
     private String name;
     private BigDecimal contributionAmount;
