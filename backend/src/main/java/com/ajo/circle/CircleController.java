@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+
 @CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174", "http://localhost:8081"})
 @RestController
 @RequestMapping("/ajo/circle")
@@ -18,12 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class CircleController {
 
     private final CircleService circleService;
+    
 
     public CircleController (CircleService circleService) {
         this.circleService = circleService;
+       
     
     }
-    
 
     @PostMapping("/createcircle")
     public CircleResponse createCircle(@RequestBody CircleRequest request) {
@@ -50,3 +53,4 @@ public class CircleController {
         circleService.deleteCircle(id);
     }
 }
+   
