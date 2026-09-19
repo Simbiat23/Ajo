@@ -52,5 +52,10 @@ public class CircleController {
     public void deleteCircle(@PathVariable Long id) {
         circleService.deleteCircle(id);
     }
+
+    @GetMapping("/user/{userId}")
+    public List<CircleResponse> getCirclesForUser(@PathVariable Long userId) {
+        return circleService.getCirclesForUser(userId);
+    }
 }
    

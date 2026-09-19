@@ -8,6 +8,8 @@ import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
+import com.ajo.circlemember.CircleMember;
+import com.ajo.circlemember.CircleMemberRepository;
 import com.ajo.user.User;
 import com.ajo.user.UserRepository;
 
@@ -16,10 +18,12 @@ public class CircleService {
 
     private final CircleRepository circleRepository;
     private final UserRepository userRepository;
+    private  final CircleMemberRepository circleMemberRepository; //used to get method of findbyuserid
 
-    public CircleService (CircleRepository circleRepository, UserRepository userRepository) {
+    public CircleService (CircleRepository circleRepository, UserRepository userRepository, CircleMemberRepository circleMemberRepository) {
         this.circleRepository = circleRepository;
         this.userRepository = userRepository;
+        this.circleMemberRepository = circleMemberRepository;
     }
 
     public CircleResponse circleResponse (Circle circle){
@@ -97,6 +101,22 @@ public class CircleService {
         }
         circleRepository.deleteById(id);
     }
+
+    //method to get only circle associated with the loggedin user, includes cricle they created and the circles they joined 
+    public List<CircleResponse> getCirclesForUser(Long userId) {
+        List<CircleResponse> listOfCircle = new ArrayList<>();
+         for (Circle circle: circleRepository.findByOrganiserId(userId)) {
+             CircleResponse eachCircle = circleResponse(circle);
+             listOfCircle.add(eachCircle);
+         }
+         for (CircleMember circleMember: circleMemberRepository.findByUserId(userId)) {
+             CircleResponse eachCircle = circleResponse(circleMember.getCircle());
+             listOfCircle.add(eachCircle);
+         }
+         return listOfCircle;
+
+    }
+
 
 
 

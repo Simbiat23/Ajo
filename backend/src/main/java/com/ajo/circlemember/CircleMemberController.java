@@ -19,9 +19,6 @@ public class CircleMemberController {
 
     @PostMapping("/join")
     public CircleResponse joinCircle(@RequestBody JoinCircleRequest request) {
-        System.out.println("Raw request object: " + request);
-        System.out.println("Received inviteCode: " + request.getInviteCode());
-        System.out.println("Received userId: " + request.getUserId());
         return circleMemberService.joinCircle(request);
     }
     

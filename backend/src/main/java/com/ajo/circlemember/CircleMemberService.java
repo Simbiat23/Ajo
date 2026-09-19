@@ -1,6 +1,10 @@
 package com.ajo.circlemember;
 
 import com.ajo.user.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.ajo.circle.Circle;
 import com.ajo.circle.CircleRepository;
@@ -35,6 +39,12 @@ public class CircleMemberService {
        return circleResponse;
      
     }
+
+    // public List<CircleResponse> getAllCircleByUserId(Long id) {
+    //     List<CircleResponse> listOfCircle = new ArrayList<>();
+
+
+    // }
 
 
 
