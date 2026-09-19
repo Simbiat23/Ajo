@@ -1,11 +1,12 @@
 import { httpApi } from "@/api/api";
-import type { CircleResponse } from "@/types/types";
+import type { CircleResponse, UserResponse } from "@/types/types";
 import { SimpleGrid} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import CircleCard from "./CircleCard";
 
 interface CircleListProp {
     onClickedCard: (circle: CircleResponse) => void
+    loggedUser: UserResponse;
 }
 
 export type RequestState<T> =
@@ -13,14 +14,14 @@ export type RequestState<T> =
     | { status: 'loading' }
     | { status: 'success'; data: T }
     | { status: 'error'; error: Error };
-export function CircleList({onClickedCard}: CircleListProp) {
+export function CircleList({onClickedCard, loggedUser}: CircleListProp) {
     const [state, setState] = useState<RequestState<CircleResponse[]>>({status:'idle'})
    
 
     async function load() {
         setState({status: 'loading'})
         try {
-            const circles = await httpApi.getAllCircle()
+            const circles = await httpApi.getCirclesForUser(loggedUser.id)
             setState({status:'success', data: circles})
          
         } catch(error) {

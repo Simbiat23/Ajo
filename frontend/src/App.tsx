@@ -36,7 +36,7 @@ function App() {
           setPage('home')
         }}/>
       case 'home': // home case renders the list of all circles
-        return <CircleList onClickedCard={(circle) => 
+        return <CircleList loggedUser={loggedInUser!} onClickedCard={(circle) => 
           {setCreatedCircle(circle)
             setPage('detail')}}/>
       case 'create':  // create case that renders a form when clicked from the 'New Circle' button in the home page 

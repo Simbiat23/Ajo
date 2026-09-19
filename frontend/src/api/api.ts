@@ -12,6 +12,7 @@ export interface Api {
     deleteCircle(id: number): Promise<void>;
     loginUser(input: LoginRequest): Promise<UserResponse>;
     joinCircle(input: string, userId: number): Promise<CircleResponse>;
+    getCirclesForUser(input: number): Promise<CircleResponse[]>
   
    
 
@@ -95,7 +96,13 @@ export const httpApi: Api = {
         responseOk(response, 'JoinCircle');
         return(await response.json()) as CircleResponse
         
-    }
+    },
+    
+    async getCirclesForUser(userId: number) {
+    const response = await fetch(`${BASE_URL}/ajo/circle/user/${userId}`);
+    responseOk(response, 'Get circles for user');
+    return (await response.json()) as CircleResponse[];
+}
 
 
 
