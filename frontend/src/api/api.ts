@@ -11,6 +11,7 @@ export interface Api {
     updateCircle(id: number, input: CircleRequest): Promise<CircleResponse>;
     deleteCircle(id: number): Promise<void>;
     loginUser(input: LoginRequest): Promise<UserResponse>;
+    joinCircle(input: string, userId: number): Promise<CircleResponse>;
   
    
 
@@ -83,7 +84,20 @@ export const httpApi: Api = {
         responseOk(response, 'Login User');
         return(await response.json()) as UserResponse
 
+    },
+
+    async joinCircle(inviteCode: string, userId: number ) {
+        const response = await fetch(`${BASE_URL}/ajo/circlemember/join`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({inviteCode, userId})
+        });
+        responseOk(response, 'JoinCircle');
+        return(await response.json()) as CircleResponse
+        
     }
+
+
 
     
 }

@@ -8,8 +8,9 @@ import { Button, Container, Heading, HStack } from '@chakra-ui/react'
 import { httpApi } from './api/api'
 import LoginForm from './components/LoginForm'
 import LandingPage from './components/LandingPage'
+import JoinCircleForm from './components/JoinCircleForm'
 
-type Page = 'landing'| 'login' | 'home' | 'create' | 'detail'| 'edit';
+type Page = 'landing'| 'login' | 'home' | 'create' | 'join' | 'detail'| 'edit';
 function App() {
   // Lifting state up: createdCircle lives here (not inside CircleForm) and shared arcoss multiple components
   const [createdCircle, setCreatedCircle] = useState<CircleResponse | null>(null)
@@ -40,6 +41,11 @@ function App() {
             setPage('detail')}}/>
       case 'create':  // create case that renders a form when clicked from the 'New Circle' button in the home page 
         return <CircleForm loggedInUserId={loggedInUser!.id} onCircleCreated={(circle) => {
+          setCreatedCircle(circle)
+          setPage('detail')
+        }}/>
+      case 'join':
+        return <JoinCircleForm  loggedInUser = {loggedInUser!} onJoinCircle={(circle) => {
           setCreatedCircle(circle)
           setPage('detail')
         }}/>
@@ -75,6 +81,7 @@ function App() {
         <HStack justifyContent="space-between">
         <Heading onClick={() => setPage('home')}>ÀJỌ</Heading>
         <Button onClick={() => setPage('create')}>New Circle</Button>
+        <Button onClick={() => setPage('join')}>Join Circle</Button>
       </HStack>
       )}
       
