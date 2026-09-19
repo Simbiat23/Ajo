@@ -1,12 +1,13 @@
 import { httpApi } from "@/api/api";
-import type {CircleResponse, Frequency } from "@/types/types";
+import type {CircleResponse, Frequency} from "@/types/types";
 import { Box, Button, Field, Heading, Input, NativeSelect, Stack, Text } from "@chakra-ui/react";
 
 import { useState } from "react";
 
 interface CircleFormProp {
-    onCircleCreated : (circle: CircleResponse) => void
-    existingCircle?: CircleResponse
+    onCircleCreated : (circle: CircleResponse) => void;
+    existingCircle?: CircleResponse;
+    loggedInUserId: number;
 }
 interface FormErrors {
     name?: string;
@@ -37,7 +38,7 @@ function validateForm(name: string, contributionAmount: string, maxMembers: stri
     return newErrors;
 }
 
-function CircleForm({onCircleCreated, existingCircle}: CircleFormProp) {
+function CircleForm({onCircleCreated, existingCircle, loggedInUserId}: CircleFormProp) {
     const [name, setName] = useState(existingCircle?.name || '')
     const [contributionAmount, setContributionAmount] = useState(existingCircle ? String(existingCircle.contributionAmount) : '')
     const [frequency, setFrequency] = useState<Frequency>(existingCircle?.frequency ||'BIWEEKLY')
@@ -56,11 +57,12 @@ function CircleForm({onCircleCreated, existingCircle}: CircleFormProp) {
 
         try {
             if (!existingCircle) {
-                const newCircle = await httpApi.createCircle({name, contributionAmount: Number(contributionAmount), frequency, maxMembers: Number(maxMembers), startDate})
+                const newCircle = await httpApi.createCircle({name, contributionAmount: Number(contributionAmount), frequency, maxMembers: Number(maxMembers), startDate, organiserId: loggedInUserId
+                 })
                 onCircleCreated(newCircle);
 
             } else {
-                const updateCircle = await httpApi.updateCircle(existingCircle.id, {name, contributionAmount: Number(contributionAmount), frequency, maxMembers: Number(maxMembers), startDate})
+                const updateCircle = await httpApi.updateCircle(existingCircle.id, {name, contributionAmount: Number(contributionAmount), frequency, maxMembers: Number(maxMembers), startDate, organiserId: loggedInUserId})
                 onCircleCreated(updateCircle)
             }
             

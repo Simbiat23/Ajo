@@ -1,17 +1,20 @@
 
 import { useState } from 'react'
 import CircleForm from './components/CircleForm'
-import type { CircleResponse } from './types/types'
+import type { CircleResponse, UserResponse } from './types/types'
 import CircleCard from './components/CircleCard'
 import CircleList from './components/CircleList'
 import { Button, Container, Heading, HStack } from '@chakra-ui/react'
 import { httpApi } from './api/api'
+import LoginForm from './components/LoginForm'
+import LandingPage from './components/LandingPage'
 
-type Page = 'home' | 'create' | 'detail'| 'edit';
+type Page = 'landing'| 'login' | 'home' | 'create' | 'detail'| 'edit';
 function App() {
   // Lifting state up: createdCircle lives here (not inside CircleForm) and shared arcoss multiple components
   const [createdCircle, setCreatedCircle] = useState<CircleResponse | null>(null)
-  const [page, setPage] = useState<Page>('home') 
+  const [page, setPage] = useState<Page>('landing') 
+  const [loggedInUser, setLoggedInUser] = useState<UserResponse | null>(null)
 
 //async function to call deleteCircle api 
  async function handleOndelete(circle: CircleResponse) {
@@ -22,12 +25,21 @@ function App() {
 // Helper function containing switch statments since switch cannot be used dirently inside the JSX
   function renderPage() {
     switch(page) {
+      case 'landing':
+        return <LandingPage onClickButton={() =>
+          setPage('login')
+        }/>
+      case 'login': //login page renders the login form
+        return <LoginForm onLoginSuccess={(user) => {
+          setLoggedInUser(user)
+          setPage('home')
+        }}/>
       case 'home': // home case renders the list of all circles
         return <CircleList onClickedCard={(circle) => 
           {setCreatedCircle(circle)
             setPage('detail')}}/>
       case 'create':  // create case that renders a form when clicked from the 'New Circle' button in the home page 
-        return <CircleForm onCircleCreated={(circle) => {
+        return <CircleForm loggedInUserId={loggedInUser!.id} onCircleCreated={(circle) => {
           setCreatedCircle(circle)
           setPage('detail')
         }}/>
@@ -43,7 +55,7 @@ function App() {
         return null
       case 'edit': // edit case that renders prefilled CircleForm to allow user to edit existing circle
         if (createdCircle !== null) {
-          return <CircleForm existingCircle={createdCircle} onCircleCreated={ (circle) => {
+          return <CircleForm loggedInUserId={loggedInUser!.id} existingCircle={createdCircle} onCircleCreated={ (circle) => {
             setCreatedCircle(circle)
             setPage('detail')
           }}/>
@@ -59,10 +71,14 @@ function App() {
 
  return (
     <Container maxWidth="600px">
-      <HStack justifyContent="space-between">
+      {loggedInUser !== null && ( // condtional render to only display if user is logged in 
+        <HStack justifyContent="space-between">
         <Heading onClick={() => setPage('home')}>ÀJỌ</Heading>
         <Button onClick={() => setPage('create')}>New Circle</Button>
       </HStack>
+      )}
+      
+      
       {renderPage()}
     </Container>
   )

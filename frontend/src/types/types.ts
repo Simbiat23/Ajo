@@ -18,6 +18,7 @@ export interface CircleRequest {
     frequency: Frequency;
     maxMembers: number;
     startDate: string;
+    organiserId: number
     
 }
 
@@ -27,4 +28,17 @@ export interface FormErrors {
     startDate: string; // Valid date format - (12/07/2026)
 
 
+}
+
+export interface LoginRequest {
+    email: string;
+    password: string;
+
+}
+
+export interface UserResponse {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string
 }

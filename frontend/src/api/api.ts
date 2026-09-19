@@ -2,7 +2,7 @@
 // Components never call fetch directly: they import `api` and get typed promises back. 
 // The client owns the network contract; the components own the UI.
 
-import type { CircleRequest, CircleResponse } from "../types/types";
+import type { CircleRequest, CircleResponse, LoginRequest, UserResponse } from "../types/types";
 
 export interface Api {
     createCircle(input: CircleRequest): Promise<CircleResponse>;
@@ -10,6 +10,10 @@ export interface Api {
     getCircleById(id: number): Promise<CircleResponse | undefined>;
     updateCircle(id: number, input: CircleRequest): Promise<CircleResponse>;
     deleteCircle(id: number): Promise<void>;
+    loginUser(input: LoginRequest): Promise<UserResponse>;
+  
+   
+
 
 
 }
@@ -69,4 +73,17 @@ export const httpApi: Api = {
         responseOk(response, 'Delete Circle');
         
     },
+
+    async loginUser(input: LoginRequest) {
+        const response = await fetch(`${BASE_URL}/ajo/user/login`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(input)
+        });
+        responseOk(response, 'Login User');
+        return(await response.json()) as UserResponse
+
+    }
+
+    
 }

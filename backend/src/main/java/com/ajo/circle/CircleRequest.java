@@ -14,6 +14,7 @@ public class CircleRequest {
     private Frequency frequency;
     private Integer maxMembers; 
     private LocalDate startDate;
+    private Long organiserId;
     
 
     

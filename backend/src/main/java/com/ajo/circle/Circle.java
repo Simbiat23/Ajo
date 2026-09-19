@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import com.ajo.user.User;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,6 +34,7 @@ public class Circle {
     private Frequency frequency;
     private Integer maxMembers; 
     private LocalDate startDate;
+    @Column(unique = true)
     private String inviteCode;
     private Integer currentCycle;
     @ManyToOne 

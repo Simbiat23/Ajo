@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
+import com.ajo.user.User;
 import com.ajo.user.UserRepository;
 
 @Service
@@ -46,6 +47,8 @@ public class CircleService {
         newCircle.setStartDate(request.getStartDate());
         newCircle.setInviteCode(generateInviteCode());
         newCircle.setCurrentCycle(1);
+        User organiser = userRepository.findById(request.getOrganiserId()).orElseThrow();
+        newCircle.setOrganiser(organiser);
      
         Circle storeCircle = circleRepository.save(newCircle);
         CircleResponse circleResponse = circleResponse(storeCircle);
