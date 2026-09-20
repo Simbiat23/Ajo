@@ -23,11 +23,13 @@ public class CircleMemberService {
     }
 
     public CircleResponse joinCircle(JoinCircleRequest request) {
+        System.out.println("Attempting to join with inviteCode: [" + request.getInviteCode() + "]");
+        var found = circleRepository.findByInviteCode(request.getInviteCode());
+        System.out.println("Circle found: " + found.isPresent());
+        Circle findByInviteCode = found.orElseThrow(() -> new InvalidInviteCodeException("Invite Does not exist"));
 
-       Circle findByInviteCode = circleRepository.findByInviteCode(request.getInviteCode()).orElseThrow( () -> new InvalidInviteCodeException("Invite Does not exist"));
-
+    //    Circle findByInviteCode = circleRepository.findByInviteCode(request.getInviteCode()).orElseThrow( () -> new InvalidInviteCodeException("Invite Does not exist"));
        User findByUserId = userRepository.findById(request.getUserId()).orElseThrow();
-       
        CircleMember newMemberOfCircle = new CircleMember();
        newMemberOfCircle.setCircle(findByInviteCode);
        newMemberOfCircle.setUser(findByUserId);

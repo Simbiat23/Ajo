@@ -26,7 +26,7 @@ function responseOk(response: Response, request: string) {
     if (!response.ok) {
         throw new Error (
             `Failed to ${request}: the server responded with` +
-            `${response.status} ${response.statusText}. ` 
+            `${response.status}  ${response.statusText}. ` 
             
         )
     }

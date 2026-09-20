@@ -3,8 +3,12 @@ INSERT IGNORE INTO users (email, first_name, last_name, password) VALUES ('tsimb
 INSERT IGNORE INTO users (email, first_name, last_name, password) VALUES ('davitkt@yahoo.com','David', 'Lance', 'england208' );
 INSERT IGNORE INTO users (email, first_name, last_name, password) VALUES ('tayeTaofeek@yahoo.com','Jumoke', 'Taofeek', 'england208' );
 INSERT IGNORE INTO users (email, first_name, last_name, password) VALUES ('adaeze@yahoo.com', 'Adaeze', 'Chukwu', 'password123');
+
 -- seed data for circle
-INSERT IGNORE INTO circles (name, contribution_amount, frequency, max_members, start_date, invite_code, current_cycle, organiser_id) VALUES('FamilyCircle', 100,'BIWEEKLY', 5, '2026-09-12', 'AJO-0966', 1, 1);
-INSERT IGNORE INTO circles (name, contribution_amount, frequency, max_members, start_date, invite_code, current_cycle, organiser_id) VALUES('FriendsCircle', 50, 'WEEKLY', 8, '2026-09-15', 'AJO-1142', 1, 2);
-INSERT IGNORE INTO circles (name, contribution_amount, frequency, max_members, start_date, invite_code, current_cycle, organiser_id) VALUES('WorkCircle', 250, 'MONTHLY', 6, '2026-10-01', 'AJO-2384', 1, 9);
-INSERT IGNORE INTO circles (name, contribution_amount, frequency, max_members, start_date, invite_code, current_cycle, organiser_id) VALUES('UniGroupCircle', 30, 'WEEKLY', 10, '2026-09-20', 'AJO-3021', 1, NULL);
+INSERT IGNORE INTO circles (name, contribution_amount, frequency, max_members, start_date, invite_code, current_cycle, organiser_id) SELECT 'FamilyCircle', 100,'BIWEEKLY', 5, '2026-09-12', 'AJO-0966', 1, u.id FROM users u WHERE u.email = 'tsimbiat@yahoo.com';;
+
+INSERT IGNORE INTO circles (name, contribution_amount, frequency, max_members, start_date, invite_code, current_cycle, organiser_id) SELECT 'FriendsCircle', 50, 'WEEKLY', 8, '2026-09-15', 'AJO-1142', 1, u.id FROM users u WHERE u.email = 'davitkt@yahoo.com';
+
+INSERT IGNORE INTO circles (name, contribution_amount, frequency, max_members, start_date, invite_code, current_cycle, organiser_id) SELECT 'WorkCircle', 250, 'MONTHLY', 6, '2026-10-01', 'AJO-2384', 1, u.id FROM users u WHERE u.email = 'tayeTaofeek@yahoo.com';
+
+INSERT IGNORE INTO circles (name, contribution_amount, frequency, max_members, start_date, invite_code, current_cycle, organiser_id) SELECT 'UniGroupCircle', 30, 'WEEKLY', 10, '2026-09-20', 'AJO-3021', 1, u.id FROM users u WHERE u.email = 'adaeze@yahoo.com';
