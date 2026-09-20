@@ -79,7 +79,7 @@ function App() {
     <Container maxWidth="600px">
       {loggedInUser !== null && ( // condtional render to only display if user is logged in 
         <HStack justifyContent="space-between">
-        <Heading onClick={() => setPage('home')}>ÀJỌ</Heading>
+        <Heading onClick={() => setPage('home')} cursor="pointer">ÀJỌ</Heading>
         <Button onClick={() => setPage('create')}>New Circle</Button>
         <Button onClick={() => setPage('join')}>Join Circle</Button>
       </HStack>

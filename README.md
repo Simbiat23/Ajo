@@ -49,8 +49,9 @@ Being upfront about these, since I'd rather state the scope clearly than have it
 - **Password hashing** — passwords are currently stored in plaintext. Login works by direct string comparison. BCrypt hashing was planned but not yet wired in.
 - **Real endpoint protection** — Spring Security is currently configured to permit all requests (`SecurityConfig.java`), purely to unblock local development and testing. "Login" in this app is a real, working check against stored credentials, but it doesn't yet protect API endpoints themselves, anyone could call `/ajo/circle/createcircle` directly without having logged in first. 
 
-- **Login doesn't persist across a page reload** — the logged-in user is only held in React state, in memory. Refreshing the browser returns you to the landing page. Persisting this (e.g. via `localStorage`) is a planned next step.
+- **Login doesn't persist across a page reload** - the logged-in user is only held in React state, in memory. Refreshing the browser returns you to the landing page. Persisting this (e.g. via `localStorage`) is a planned next step.
 - **Possible duplicate circles in the "my circles" list** — `GET /ajo/circle/user/{userId}` combines circles a user organises with circles they've joined via `CircleMember`, but doesn't currently de-duplicate. If a user were ever both the organiser and a `CircleMember` of the same circle, it would appear twice.
+**Can't delete a circle that has members** - `Circle` and `CircleMember` are linked by a foreign key, and deleting a circle that still has `CircleMember` rows pointing to it currently fails, since those rows aren't cascade-deleted first. This is correct relational database behaviour, but the app doesn't yet handle it gracefully, the delete request fails rather than either blocking cleanly with a clear message, or cascading the delete on purpose. Not yet resolved.
 - **Landing page is functional, not yet styled** — the routing/gating logic is complete; visual design and any animation are still to be done.
 
 ## What I'd do with more time

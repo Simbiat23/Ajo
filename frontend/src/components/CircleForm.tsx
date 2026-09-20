@@ -85,7 +85,7 @@ function CircleForm({onCircleCreated, existingCircle, loggedInUserId}: CircleFor
 
             <Stack gap="4">
                 <Field.Root invalid={!!errors.name}>
-                    <Field.Label>Circle Name</Field.Label>         
+                    <Field.Label>Circle Name<Text as="span" color="red.500">*</Text></Field.Label>         
                     <Input value={name} onChange={(event) => setName(event.target.value)} placeholder="Enter Circle name" type="text" />
                     {errors.name && <Field.ErrorText>{errors.name}</Field.ErrorText>}
                 </Field.Root>
@@ -93,14 +93,14 @@ function CircleForm({onCircleCreated, existingCircle, loggedInUserId}: CircleFor
 
                <Stack direction="row" gap="4">
                     <Field.Root invalid={!!errors.contributionAmount}>
-                        <Field.Label>Contribution amount</Field.Label>
+                        <Field.Label>Contribution amount <Text as="span" color="red.500">*</Text></Field.Label>
                 
                         <Input  value={contributionAmount} onChange={(event) => setContributionAmount(event.target.value)}/>
                         {errors.contributionAmount && <Field.ErrorText>{errors.contributionAmount}</Field.ErrorText>}
                     </Field.Root>
 
                     <Field.Root invalid={!!errors.maxMembers}>
-                        <Field.Label>MaxMember</Field.Label>
+                        <Field.Label>MaxMember <Text as="span" color="red.500">*</Text></Field.Label>
                         <Input   value={maxMembers} onChange={(event) => setMaxMembers(event.target.value)}/>
                         {errors.maxMembers && <Field.ErrorText>{errors.maxMembers}</Field.ErrorText>}
                     </Field.Root>
@@ -119,7 +119,7 @@ function CircleForm({onCircleCreated, existingCircle, loggedInUserId}: CircleFor
                         </NativeSelect.Root>
                     </Field.Root>
                     <Field.Root invalid={!!errors.startDate}>   
-                        <Field.Label>Start date</Field.Label>
+                        <Field.Label>Start date <Text as="span" color="red.500">*</Text></Field.Label>
                         <Input type="date"  value={startDate} onChange={(event) => setStartDate(event.target.value)} placeholder="Enter a start Date"/>
                         {errors.startDate && <Field.ErrorText>{errors.startDate}</Field.ErrorText>}
                     </Field.Root>  

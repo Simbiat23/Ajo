@@ -11,7 +11,7 @@ interface CircleCardProp  {
 
 export function CircleCard({circle, onClickCard, onClickButton, isDetailPage, onDeleteButton}: CircleCardProp) {
     return (   
-          <Box onClick={onClickCard} borderWidth="1px" borderRadius="md" padding="6" maxWidth="400px">
+          <Box cursor="pointer" onClick={onClickCard} borderWidth="1px" borderRadius="md" padding="6" maxWidth="400px">
             <Heading>Circle Name: {circle.name}</Heading> 
             <Stack gap= "2">
                     <Text> Circle Id: {circle.id}</Text>
