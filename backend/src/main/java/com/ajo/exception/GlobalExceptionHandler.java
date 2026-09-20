@@ -17,6 +17,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleInvalidLogin(InvalidLoginException ex ) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
+    @ExceptionHandler(InvalidInviteCodeException.class)
+    public ResponseEntity<String> handleInvalidInviteCode(InvalidInviteCodeException ex ) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
 
     
 }

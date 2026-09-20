@@ -40,6 +40,14 @@ public class Circle {
     @ManyToOne 
     @JoinColumn(name = "organiser_id")
     private User organiser;
+    public Circle orElseThrow() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
+    public Circle orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
 
 
 

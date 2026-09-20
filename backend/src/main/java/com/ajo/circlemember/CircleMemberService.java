@@ -1,14 +1,11 @@
 package com.ajo.circlemember;
 
 import com.ajo.user.User;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import com.ajo.circle.Circle;
 import com.ajo.circle.CircleRepository;
 import com.ajo.circle.CircleResponse;
+import com.ajo.exception.InvalidInviteCodeException;
 import com.ajo.user.UserRepository;
 
 
@@ -27,8 +24,10 @@ public class CircleMemberService {
 
     public CircleResponse joinCircle(JoinCircleRequest request) {
 
-       Circle findByInviteCode = circleRepository.findByInviteCode(request.getInviteCode()).orElseThrow();
+       Circle findByInviteCode = circleRepository.findByInviteCode(request.getInviteCode()).orElseThrow( () -> new InvalidInviteCodeException("Invite Does not exist"));
+
        User findByUserId = userRepository.findById(request.getUserId()).orElseThrow();
+       
        CircleMember newMemberOfCircle = new CircleMember();
        newMemberOfCircle.setCircle(findByInviteCode);
        newMemberOfCircle.setUser(findByUserId);
@@ -40,11 +39,7 @@ public class CircleMemberService {
      
     }
 
-    // public List<CircleResponse> getAllCircleByUserId(Long id) {
-    //     List<CircleResponse> listOfCircle = new ArrayList<>();
-
-
-    // }
+  
 
 
 
