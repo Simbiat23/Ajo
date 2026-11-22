@@ -8,7 +8,7 @@
 
 ÀJỌ is a web-based platform that digitises traditional rotational
 savings groups commonly used across African, Caribbean, and Black
-diaspora communities.
+diaspora communities. 
 
 Traditionally, these savings groups are managed through WhatsApp groups,
 spreadsheets, notebooks, and manual record keeping. This often leads to

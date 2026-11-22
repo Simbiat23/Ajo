@@ -2,6 +2,15 @@
 
 ÀJỌ is a digital rotational savings circle (/ajo/pardna/susu) platform, built for a fullstack development course with CBF. It's designed to bring transparency and accountability to informal community savings groups, letting members create circles, join via invite code, track contributions, and follow the payout rotation, all in one place.
 
+ÀJỌ is a digital rotational savings circle (/ajo/pardna/susu) platform, digitises traditional rotational
+savings groups commonly used across African, Caribbean, and Black
+diaspora communities.
+
+
+It's designed to bring transparency and accountability to informal community savings groups, letting members create circles, join via invite code, track contributions, and follow the payout rotation, all in one place.
+
+
+I used DTOs to separate my API contract from my database schema — specifically so a field like password could exist on the entity, for internal use like login, without ever being capable of appearing in an API response."
 ---
 
 ## Project vision
